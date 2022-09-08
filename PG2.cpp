@@ -22,7 +22,7 @@ void print(vector<int> &v, int SIZE);
 int main()
 {
     int SIZE;
-    char choice;
+    char choice = '1';
     vector<int> v;
 
     cout << "Welcome to My Vector APP"
@@ -40,18 +40,26 @@ int main()
     cout << " E. Sort the vector array in an ascending order from lowest to highest. Display" << endl;
     cout << "    the sorted vector array"
          << "\n\n";
-    cout << "Select one of the following: "
-         << "\n\n";
-    cout << " 1 - Generate the Array." << endl;
-    cout << " 9 - Exit the App." << endl;
-    cout << "Enter your Choice: ";
-    cin >> choice;
-    cout << endl;
-    while (choice == '1')
+
+    while (choice != '9')
     {
+        cout << "Select one of the following: "
+             << "\n\n";
+        cout << " 1 - Generate the Array." << endl;
+        cout << " 9 - Exit the App." << endl;
+        cout << "Enter your Choice: ";
+        cin >> choice;
+        cout << endl;
+        if (choice != '1' && choice != '9')
+        {
+            cout << "Invalid selection" << endl;
+            continue;
+        } else if(choice == '9'){
+            break;
+        }
         cout << "Enter the size of the array: " << endl;
         cin >> SIZE;
-        if(SIZE < 0 || SIZE > 30)
+        if (SIZE < 0 || SIZE > 30)
         {
             cout << "Invalid. Size must be <= 30" << endl;
         }
@@ -60,14 +68,14 @@ int main()
             cout << "The generated array is:" << endl;
             populate(v, SIZE);
             print(v, SIZE);
-
         }
-        cout << endl << "Select one of the following: " << "\n\n";
-        cout << " 1 - Generate the Array." << endl;
-        cout << " 9 - Exit the App." << endl;
-        cout << endl
-             << "Enter your Choice: ";
-        cin >> choice;
+        // cout << endl
+        //      << "Select one of the following: "
+        //      << "\n\n";
+        // cout << " 1 - Generate the Array." << endl;
+        // cout << " 9 - Exit the App." << endl;
+        // cout << endl
+        //      << "Enter your Choice: ";
     }
     if(choice == '9')
         {
@@ -75,6 +83,10 @@ int main()
             cout << "Danny Pham" << endl;
             cout << "9-19-2022" << endl;
         }
+    // else
+    // {
+    //     cout << "Invalid Selection" << endl;
+    // }
 
     return 0;
 }
@@ -94,4 +106,5 @@ void print(vector<int> &v, int SIZE)
     {
         cout << v[i] << " ";
     }
+    cout << endl;
 }
