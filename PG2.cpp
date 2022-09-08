@@ -13,11 +13,13 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <unordered_map>
 
 using namespace std;
 
 void populate(vector<int> &v, int SIZE);
 void print(vector<int> &v, int SIZE);
+void numberLog(vector<int> &v, int SIZE);
 
 int main()
 {
@@ -54,7 +56,9 @@ int main()
         {
             cout << "Invalid selection" << endl;
             continue;
-        } else if(choice == '9'){
+        }
+        else if (choice == '9')
+        {
             break;
         }
         cout << "Enter the size of the array: " << endl;
@@ -68,26 +72,16 @@ int main()
             cout << "The generated array is:" << endl;
             populate(v, SIZE);
             print(v, SIZE);
+            cout << endl << "Number  Count" << endl;
+            numberLog(v,SIZE);
         }
-        // cout << endl
-        //      << "Select one of the following: "
-        //      << "\n\n";
-        // cout << " 1 - Generate the Array." << endl;
-        // cout << " 9 - Exit the App." << endl;
-        // cout << endl
-        //      << "Enter your Choice: ";
     }
-    if(choice == '9')
-        {
-            cout << "Thanks for Using the Vector APP." << endl;
-            cout << "Danny Pham" << endl;
-            cout << "9-19-2022" << endl;
-        }
-    // else
-    // {
-    //     cout << "Invalid Selection" << endl;
-    // }
-
+    if (choice == '9')
+    {
+        cout << "Thanks for Using the Vector APP." << endl;
+        cout << "Danny Pham" << endl;
+        cout << "9-19-2022" << endl;
+    }
     return 0;
 }
 
@@ -107,4 +101,26 @@ void print(vector<int> &v, int SIZE)
         cout << v[i] << " ";
     }
     cout << endl;
+}
+
+void numberLog(vector<int> &v, int SIZE)
+{
+    unordered_map<int, int> dict;
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (dict.find(v[i]) == dict.end())
+        {
+            dict[v[i]] = 1;
+        }
+        else
+        {
+            dict[v[i]]++;
+        }
+    }
+
+    unordered_map<int, int>::iterator itr;
+    for (itr = dict.begin(); itr != dict.end(); itr++)
+    {
+        cout << itr->first << "  " << itr->second << endl;
+    }
 }
