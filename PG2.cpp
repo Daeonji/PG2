@@ -14,18 +14,22 @@
 #include <vector>
 #include <random>
 #include <unordered_map>
+#include <algorithm>
+
 
 using namespace std;
 
 void populate(vector<int> &v, int SIZE);
 void print(vector<int> &v, int SIZE);
-void numberLog(vector<int> &v, int SIZE);
+unordered_map<int,int> numberLog(vector<int> &v, int SIZE, unordered_map<int, int> dict);
+unordered_map<int,int> remove(vector<int> &v, int SIZE, unordered_map<int,int> dict);
 
 int main()
 {
     int SIZE;
     char choice = '1';
     vector<int> v;
+    unordered_map<int, int> dict;
 
     cout << "Welcome to My Vector APP"
          << "\n\n";
@@ -73,7 +77,11 @@ int main()
             populate(v, SIZE);
             print(v, SIZE);
             cout << endl << "Number  Count" << endl;
-            numberLog(v,SIZE);
+            numberLog(v,SIZE, dict);
+            cout << endl;
+            cout << "Array after removing repeated elements: " << endl;
+            remove(v,SIZE,dict);
+            cout << endl;
         }
     }
     if (choice == '9')
@@ -103,9 +111,8 @@ void print(vector<int> &v, int SIZE)
     cout << endl;
 }
 
-void numberLog(vector<int> &v, int SIZE)
+unordered_map<int, int> numberLog(vector<int> &v, int SIZE, unordered_map<int, int> dict)
 {
-    unordered_map<int, int> dict;
     for (int i = 0; i < SIZE; i++)
     {
         if (dict.find(v[i]) == dict.end())
@@ -117,10 +124,24 @@ void numberLog(vector<int> &v, int SIZE)
             dict[v[i]]++;
         }
     }
-
     unordered_map<int, int>::iterator itr;
     for (itr = dict.begin(); itr != dict.end(); itr++)
     {
-        cout << itr->first << "  " << itr->second << endl;
+        cout << "  " << itr->first << "       " << itr->second << endl;
     }
+
+    return dict;
+}
+
+unordered_map<int,int> remove(vector<int> &v, int SIZE, unordered_map<int, int> dict)
+{
+    for(int i = 0; i < SIZE; i++)
+    {
+        if(dict.find(v[i]) == dict.end())
+        {
+            cout << v[i] << " ";
+        }
+        dict[v[i]] = true;
+    }
+    return dict;
 }
